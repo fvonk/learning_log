@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 from .models import Topic, Entry
+from django.db.models import Q
 from .forms import TopicForm, EntryForm
 
 # Create your views here.
@@ -14,7 +15,7 @@ def index(request):
 
 @login_required
 def topics(request):
-    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
+    topics = Topic.objects.filter(Q(public=True) | Q(owner=request.user)).order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
@@ -81,5 +82,5 @@ def edit_entry(request, entry_id):
 
 
 def check_topic_owner(topic, user):
-    if topic.owner != user:
+    if topic.owner != user and topic.public == False:
         raise Http404
