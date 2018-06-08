@@ -143,7 +143,7 @@ if cwd == '/app' or cwd[:4] == '/tmp':
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    ALLOWED_HOSTS = ['learning-log.herokuapp.com']
+    ALLOWED_HOSTS = ['learning-log-3110.herokuapp.com']
     DEBUG = False
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
